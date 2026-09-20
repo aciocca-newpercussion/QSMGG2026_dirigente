@@ -69,6 +69,24 @@ npm run build      # tsc --noEmit && vite build → genera /dist
 npm run preview     # serve la build di produzione in locale
 ```
 
+## Deploy su Cloudflare Pages
+
+Il repository include `.github/workflows/deploy-cloudflare.yml`: a ogni push sul branch `claude/keen-einstein-o6a9jd` builda l'app e la pubblica su Cloudflare Pages (progetto `qsmgg2026-dirigente`) tramite `wrangler pages deploy`.
+
+Perché funzioni serve **una sola configurazione manuale**, da fare una volta sola su GitHub (nessun'altra azione richiesta in seguito):
+
+1. Crea un token API su Cloudflare: [dash.cloudflare.com/profile/api-tokens](https://dash.cloudflare.com/profile/api-tokens) → **Create Token** → template **"Edit Cloudflare Pages"** (permesso minimo necessario, non serve un token con accesso completo all'account).
+2. Recupera il tuo **Account ID** Cloudflare (visibile nella sidebar destra di qualunque pagina del dashboard, sezione del dominio/account).
+3. Su GitHub, nel repository: **Settings → Secrets and variables → Actions → New repository secret**, aggiungi:
+   - `CLOUDFLARE_API_TOKEN` → il token creato al punto 1
+   - `CLOUDFLARE_ACCOUNT_ID` → l'Account ID del punto 2
+
+Al primo deploy `wrangler` crea automaticamente il progetto Pages `qsmgg2026-dirigente` se non esiste già. Il sito sarà raggiungibile su `https://qsmgg2026-dirigente.pages.dev/` (o su un dominio personalizzato, se ne colleghi uno dal dashboard Cloudflare Pages).
+
+Per rilanciare il deploy senza un nuovo push: **Actions → Deploy su Cloudflare Pages → Run workflow**.
+
+> Nota: in precedenza si era tentato un deploy su GitHub Pages (workflow poi rimosso), fallito perché il token di GitHub Actions non ha il permesso di amministrazione necessario per abilitare Pages per la prima volta su un repository. Cloudflare Pages non ha questo problema perché l'autenticazione è indipendente dai permessi di GitHub. Dettagli in `ERRORI.md`.
+
 ## Funzionalità principali
 
 - **Dashboard**: panoramica progressi, punteggio scelta multipla, casi studio completati, copertura per ambito tematico, reset dei progressi.

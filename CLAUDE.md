@@ -42,6 +42,10 @@ npm run typecheck  # solo controllo tipi, senza build
 - Nessun router, nessuno state manager esterno: per un'app di 3 viste con un solo oggetto di stato condiviso sarebbe over-engineering.
 - Font Inter caricato da Google Fonts in `index.html` con fallback `system-ui` nello stack di `tailwind.config.js`: se Google Fonts non è raggiungibile (reti aziendali, sandbox), l'app resta pienamente funzionale con il fallback di sistema.
 
+## Deploy
+
+Pubblicato automaticamente su **Cloudflare Pages** (non GitHub Pages: tentativo abbandonato, vedi `ERRORI.md` punto 7) tramite `.github/workflows/deploy-cloudflare.yml`, a ogni push su `claude/keen-einstein-o6a9jd`. Richiede i repository secret `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID`, impostati manualmente dal proprietario (istruzioni in `README.md`). `vite.config.ts` **non** deve avere un `base` diverso da `/`: Cloudflare Pages serve dalla radice del proprio dominio, non da un sottopercorso.
+
 ## Verifica prima di ogni modifica strutturale
 
 1. `npm run build` deve restare pulito (zero errori TypeScript).

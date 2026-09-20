@@ -1,0 +1,39 @@
+name: Deploy su Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - claude/keen-einstein-o6a9jd
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installa dipendenze
+        run: npm ci
+
+      - name: Build di produzione
+        run: npm run build
+
+      # Richiede i repository secret CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID
+      # (Settings -> Secrets and variables -> Actions), impostati manualmente dal
+      # proprietario del repository. Vedi README.md per le istruzioni.
+      - name: Pubblica su Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=qsmgg2026-dirigente
