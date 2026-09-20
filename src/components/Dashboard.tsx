@@ -34,8 +34,8 @@ function Dashboard({ progresso, onNavigate, onReset }: DashboardProps) {
         <p className="mt-3 max-w-3xl text-sm text-slate-200 sm:text-base">
           {quesiti.length} quesiti reali sulle criticità gestionali degli uffici giudiziari:
           relazioni sindacali, riorganizzazione PNRR, rapporti con la magistratura,
-          continuità operativa dei sistemi telematici, gestione del personale e prevenzione
-          della corruzione.
+          continuità operativa dei sistemi telematici, gestione del personale, prevenzione
+          della corruzione e contabilità pubblica applicata alla dirigenza giudiziaria.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           {elencoAmbiti.map((ambito) => (

@@ -9,6 +9,12 @@ export type Ambito =
   | 'Digitalizzazione e Continuità Operativa (PCT/PDP)'
   | 'Gestione del Personale, Disciplina e Smart Working'
   | 'Anticorruzione e Trasparenza (L. 190/2012)'
+  | 'Bilancio dello Stato e Programmazione della Spesa'
+  | 'Gestione del Budget degli Uffici Giudiziari'
+  | 'Spese di Giustizia (T.U. DPR 115/2002)'
+  | 'Contratti Pubblici e Approvvigionamenti (D.Lgs. 36/2023)'
+  | 'Agenti Contabili e Gestione dei Beni'
+  | 'Controlli della Corte dei Conti e Responsabilità Erariale'
 
 export type Livello = 'Base' | 'Avanzato' | 'Alta Complessità'
 

@@ -21,12 +21,12 @@ npm run typecheck  # solo controllo tipi, senza build
 ## Dove vive il contenuto (dominio "quesiti")
 
 - `src/types/index.ts` - unica fonte di verità per i tipi `Quesito` (discriminated union `QuesitoMultiplo | QuesitoAperto` su `tipo`), `Ambito`, `Livello`, `ProgressoSalvato`.
-- `src/data/questions.ts` - array `quesiti: Quesito[]` con i 30 quesiti (id 1-15 scelta multipla, id 16-30 risposta aperta). Esporta anche `quesitiMultipli`, `quesitiAperti` (filtrati con type guard) ed `elencoAmbiti` (derivato, non hardcoded).
+- `src/data/questions.ts` - array `quesiti: Quesito[]` con i 60 quesiti: id 1-15 e 31-45 scelta multipla, id 16-30 e 46-60 risposta aperta. I primi 6 ambiti (id 1-30) coprono la gestione organizzativa/relazionale del dirigente DOG; altri 6 ambiti (id 31-60) coprono la contabilità pubblica applicata agli uffici giudiziari (bilancio dello Stato, budget di funzionamento post D.L. 90/2014, spese di giustizia DPR 115/2002, contratti pubblici D.Lgs. 36/2023, agenti contabili, controlli della Corte dei Conti). Esporta anche `quesitiMultipli`, `quesitiAperti` (filtrati con type guard) ed `elencoAmbiti` (derivato, non hardcoded).
 - `src/data/rubrica.ts` - i 5 criteri della griglia di valutazione mostrata nei casi studio, condivisi da tutti i quesiti aperti (non ce n'è uno diverso per quesito).
 
 **Per aggiungere un nuovo quesito**: aggiungerlo all'array in `questions.ts` con un `id` univoco progressivo, rispettando la forma `QuesitoMultiplo` (4 opzioni A-D, `rispostaCorretta`, `spiegazioneDettagliata` che cita normativa + stile di leadership situazionale) o `QuesitoAperto` (`rispostaModello` di 6-8 righe). Nessun altro file va toccato: `quesitiMultipli`/`quesitiAperti`/`elencoAmbiti` sono derivati automaticamente. Se si aggiunge un nuovo `Ambito`, estendere l'union type in `types/index.ts`.
 
-**Bilanciamento delle risposte corrette**: nei quesiti a scelta multipla la lettera corretta (A/B/C/D) è distribuita in modo bilanciato (attualmente A×4, B×4, C×4, D×3) per evitare pattern individuabili dall'utente. Se si aggiungono nuovi quesiti a scelta multipla, mantenere questo bilanciamento e verificare che i riferimenti alle opzioni dentro `spiegazioneDettagliata` (es. "opzione B") corrispondano davvero alla lettera assegnata a quell'opzione nell'oggetto `opzioni`.
+**Bilanciamento delle risposte corrette**: nei quesiti a scelta multipla la lettera corretta (A/B/C/D) è distribuita in modo bilanciato (attualmente A×8, B×8, C×8, D×6 sui 30 quesiti a scelta multipla) per evitare pattern individuabili dall'utente. Se si aggiungono nuovi quesiti a scelta multipla, mantenere questo bilanciamento e verificare che i riferimenti alle opzioni dentro `spiegazioneDettagliata` (es. "opzione B") corrispondano davvero alla lettera assegnata a quell'opzione nell'oggetto `opzioni`.
 
 ## Architettura dei componenti
 
